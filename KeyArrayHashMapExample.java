@@ -40,6 +40,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Objects; 
 
 public class KeyArrayHashMapExample { 
    
@@ -62,7 +63,7 @@ public class KeyArrayHashMapExample {
        mykeymap.put(newKeys, newValues); 
     }
     
-    System.out.printf("Searching for key %s, found value %s.\n", srchKey, mykeymap.get(srchKey).toString()); 
+    System.out.printf("Searching for key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.get(srchKey), "(*** key not found ***)")); 
     
     }
 }
