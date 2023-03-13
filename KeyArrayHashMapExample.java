@@ -54,6 +54,7 @@ public class KeyArrayHashMapExample {
      ArrayList<String> newValues = new ArrayList<String>(); 
      // Create a new KeyArrayHashMap, that will have tuples of keys and values 
      //  
+     System.out.println("Building test arrays for our KeyArrayHashMap:"); 
      for(int i=1; i<=50; i++) { 
        newKeys = new ArrayList<String>();
        newKeys.add(Integer.toString(i));  
@@ -63,15 +64,20 @@ public class KeyArrayHashMapExample {
        newValues.add("first value for "+Integer.toString(i)); 
        newValues.add("second value for "+Integer.toString(i)); 
        newValues.add("third value for "+Integer.toString(i));   
+       System.out.printf("Entry %02d, KeyArr: [%s] ValArr[%s].\n", i, newKeys.toString(), newValues.toString()); 
        mykeymap.put(newKeys, newValues); 
     }
     
-    System.out.printf("Searching all keys for all values: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.get(srchKey), "(*** key not found ***)")); 
+    System.out.printf("Searching all keys for all values: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getV(srchKey), "(*** key not found ***)")); 
     System.out.printf("Searching 2nd key for all values: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getV(srchKey, 2), "(*** key not found ***)")); 
     System.out.printf("Searching 3rd keys for 1st value: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getV(srchKey, 3, 1), "(*** key not found ***)")); 
     System.out.printf("Searching 1st val for all keys: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal1, 1), "(*** key not found ***)")); 
-    System.out.printf("Searching 2nd val for 3rd key: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal2, 2, 3), "(*** key not found ***)")); 
+    System.out.printf("Searching 2nd val for 3rd key: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal2, 2, 3), "(*** key not found ***)"));     
+    System.out.printf("Searching all values for all keys: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal3), "(*** key not found ***)")); 
     
+    System.out.printf("Searching 2nd val for 10th key (out of bounds): key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal2, 2, 10), "(*** key not found ***)")); 
+    System.out.printf("Searching 10th val for 3rd key (out of bounds): key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal2, 10, 3), "(*** key not found ***)")); 
+
     }
 }
     

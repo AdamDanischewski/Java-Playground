@@ -42,11 +42,10 @@ import java.util.HashMap;
 @SuppressWarnings("serial")
 class KeyArrayHashMap extends HashMap<ArrayList<String>, ArrayList<String>> { 
 
- public ArrayList<String> get(String findKey) { 
+ public ArrayList<String> getV(String findKey) { 
     ArrayList<String> retVal = null; 
         for ( ArrayList<String> key : this.keySet() ) {
         if (key.contains(findKey)) {           
-             //System.out.printf( "Found key %s it's %s.\n", findKey, key.toString());
             retVal = key; 
             break; 
             }
@@ -59,7 +58,6 @@ public ArrayList<String> getV(String findKey, int keyIndex) {
     ArrayList<String> retVal = null; 
         for ( ArrayList<String> key : this.keySet() ) {
         if (key.get(keyIndex-1).equals(findKey)) {           
-             //System.out.printf( "Found key %s it's %s.\n", findKey, key.toString());
             retVal = key; 
             break; 
             }
@@ -72,13 +70,26 @@ public String getV(String findKey, int keyIndex, int valIndex) {
         ArrayList<String> retVal = null; 
         for ( ArrayList<String> key : this.keySet() ) {
         if (key.get(keyIndex-1).equals(findKey)) {           
-            //System.out.printf( "Found key %s it's %s.\n", findKey, key.toString());
             retVal = key; 
             break; 
         }
     }
 return (retVal == null) ? null : this.get(retVal).get(valIndex-1);
 }
+
+// Return the value array for specific hit on keys[findkey].  
+public ArrayList<String> getK(String findVal) { 
+    ArrayList<String> retVal = null; 
+    ArrayList<String> valSet = null; 
+    for ( ArrayList<String> key : this.keySet() ) { 
+        valSet = this.get(key); // Value set for current key 
+        if (valSet.contains(findVal)) {           
+            retVal = key; 
+        }
+    }
+return retVal;
+}
+
 
 // Return the value array for specific hit on keys[findkey].  
 public ArrayList<String> getK(String findVal, int valIndex) { 
@@ -100,12 +111,15 @@ public String getK(String findVal, int valIndex, int keyIndex) {
     ArrayList<String> valSet = null; 
     for ( ArrayList<String> key : this.keySet() ) {
         valSet = this.get(key); // Value set for current key 
-        if (valSet.get(valIndex-1).equals(findVal)) {           
+               // Make sure our requested val index is sane, within [1..key.size()], quietly   
+               // skip o/w since variable length key and value ArrayLists are possible.  
+           if ((valIndex<valSet.size()) && (valIndex>0) && valSet.get(valIndex-1).equals(findVal)) {           
             retVal = key; 
             break; 
             }
-    }
-return (retVal == null) ? null : retVal.get(keyIndex-1);
+        }
+        // Sanity check - retVal is non-null and keyIndex is within [1..key.size()], null otherwise  
+return ((retVal == null) || ((keyIndex > retVal.size())||(keyIndex<1))) ? null : retVal.get(keyIndex-1);
 }
 
 
