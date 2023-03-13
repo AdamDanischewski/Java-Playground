@@ -77,10 +77,7 @@ public String getV(String findKey, int keyIndex, int valIndex) {
             break; 
         }
     }
-if (retVal == null) 
- return null; 
-else      
- return this.get(retVal).get(valIndex-1);
+return (retVal == null) ? null : this.get(retVal).get(valIndex-1);
 }
 
 
