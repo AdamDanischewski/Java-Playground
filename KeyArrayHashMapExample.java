@@ -47,6 +47,9 @@ public class KeyArrayHashMapExample {
      public static void main(String[] args) {
      KeyArrayHashMap mykeymap = new KeyArrayHashMap(); 
      String srchKey = args[0]; 
+     String srchVal1 = "first value for "+srchKey; 
+     String srchVal2 = "second value for "+srchKey; 
+     String srchVal3 = "third value for "+srchKey; 
      ArrayList<String> newKeys; 
      ArrayList<String> newValues = new ArrayList<String>(); 
      // Create a new KeyArrayHashMap, that will have tuples of keys and values 
@@ -66,6 +69,8 @@ public class KeyArrayHashMapExample {
     System.out.printf("Searching all keys for all values: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.get(srchKey), "(*** key not found ***)")); 
     System.out.printf("Searching 2nd key for all values: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getV(srchKey, 2), "(*** key not found ***)")); 
     System.out.printf("Searching 3rd keys for 1st value: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getV(srchKey, 3, 1), "(*** key not found ***)")); 
+    System.out.printf("Searching 1st val for all keys: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal1, 1), "(*** key not found ***)")); 
+    System.out.printf("Searching 2nd val for 3rd key: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal2, 2, 3), "(*** key not found ***)")); 
     
     }
 }

@@ -80,6 +80,33 @@ public String getV(String findKey, int keyIndex, int valIndex) {
 return (retVal == null) ? null : this.get(retVal).get(valIndex-1);
 }
 
+// Return the value array for specific hit on keys[findkey].  
+public ArrayList<String> getK(String findVal, int valIndex) { 
+    ArrayList<String> retVal = null; 
+    ArrayList<String> valSet = null; 
+    for ( ArrayList<String> key : this.keySet() ) {
+        valSet = this.get(key); // Value set for current key 
+        if (valSet.get(valIndex-1).equals(findVal)) {           
+            retVal = key; 
+            break; 
+            }
+    }
+return retVal;
+}
+
+// Return the value array for specific hit on keys[findkey].  
+public String getK(String findVal, int valIndex, int keyIndex) { 
+    ArrayList<String> retVal = null; 
+    ArrayList<String> valSet = null; 
+    for ( ArrayList<String> key : this.keySet() ) {
+        valSet = this.get(key); // Value set for current key 
+        if (valSet.get(valIndex-1).equals(findVal)) {           
+            retVal = key; 
+            break; 
+            }
+    }
+return (retVal == null) ? null : retVal.get(keyIndex-1);
+}
 
 
 //  @Override
