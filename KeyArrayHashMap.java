@@ -5,7 +5,7 @@
 ## File ID: ed330953e83d67c146c488dd81a3280e
 ## Filename: KeyArrayHashMap.java
 ## Classes: KeyArrayHashMap
-## Last Modified: 2023-03-12
+## Last Modified: 2023-03-13
 ## Issues: If you find any issues emai1 me at my <first name> dot
 ##         <my last name> at gmail dot com.
 ##
@@ -15,11 +15,11 @@
 ## using known length keys and values, it should (eventually its a wip) be able 
 ## to do things like: 
 ##  getV("match", 3, 5); // find "match" in key 3 and return 5th value. 
-##  getV("match", 0, 2); // find "match" in any key, return 2nd value. 
-##  getV("match", 0);    // find "match" in any key, return all values. 
-##  getK("match", 3, 5); // find "match" in value 3 and return 5th key. 
-##  getK("match", 0, 2); // find "match" in any value, return 2nd key. 
-##  getK("match", 0);    // find "match" in any value, return all keys. 
+##  getV("match", 2);    // find "match" in 2nd key, return all values. 
+##  getV("match");       // find "match" in any key, return all values. 
+##  getK("match", 3);    // find "match" in 3rd value and return all keys. 
+##  getK("match", 2, 2); // find "match" in 2nd value , return 2nd key. 
+##  getK("match");       // find "match" in any value, return all keys. 
 ## 
 ## This header is required to follow any reuse of this code and is not 
 ## allowed to be modified or deleted except by the Author. This program is 
@@ -42,6 +42,7 @@ import java.util.HashMap;
 @SuppressWarnings("serial")
 class KeyArrayHashMap extends HashMap<ArrayList<String>, ArrayList<String>> { 
 
+  // Returns the first matching key set's value array. 
  public ArrayList<String> getV(String findKey) { 
     ArrayList<String> retVal = null; 
         for ( ArrayList<String> key : this.keySet() ) {
@@ -50,34 +51,35 @@ class KeyArrayHashMap extends HashMap<ArrayList<String>, ArrayList<String>> {
             break; 
             }
     }
-return this.get(retVal);
+return (retVal == null) ? null : this.get(retVal);
 }
 
-// Return the value array for specific hit on keys[findkey].  
+// Return the value array for keys[keyIndex] == findKey.  
 public ArrayList<String> getV(String findKey, int keyIndex) { 
     ArrayList<String> retVal = null; 
         for ( ArrayList<String> key : this.keySet() ) {
-        if (key.get(keyIndex-1).equals(findKey)) {           
+            if ((keyIndex<key.size()) && (keyIndex>0) && key.get(keyIndex-1).equals(findKey)) {           
             retVal = key; 
             break; 
             }
     }
-return this.get(retVal);
+return (retVal == null) ? null : this.get(retVal);
 }
 
-// Return the value array for specific hit on keys[findkey].  
+ // Return String val[valIndex] for keys[keyIndex]==findKey  
 public String getV(String findKey, int keyIndex, int valIndex) { 
         ArrayList<String> retVal = null; 
         for ( ArrayList<String> key : this.keySet() ) {
-        if (key.get(keyIndex-1).equals(findKey)) {           
+          if ((keyIndex<key.size()) && (keyIndex>0) && key.get(keyIndex-1).equals(findKey)) {           
             retVal = key; 
             break; 
         }
     }
-return (retVal == null) ? null : this.get(retVal).get(valIndex-1);
+             // Sanity check - retVal is non-null and valIndex is within [1..retVal.size()], null otherwise  
+    return ((retVal == null) || ((valIndex > retVal.size())||(valIndex<1))) ? null : retVal.get(valIndex-1);
 }
 
-// Return the value array for specific hit on keys[findkey].  
+ // Return the key array for valArray.contains(findVal) 
 public ArrayList<String> getK(String findVal) { 
     ArrayList<String> retVal = null; 
     ArrayList<String> valSet = null; 
@@ -87,25 +89,25 @@ public ArrayList<String> getK(String findVal) {
             retVal = key; 
         }
     }
-return retVal;
+    return (retVal == null) ? null : retVal;
 }
 
 
-// Return the value array for specific hit on keys[findkey].  
+// Return the key array for vals[valIndex]=findVal  
 public ArrayList<String> getK(String findVal, int valIndex) { 
     ArrayList<String> retVal = null; 
     ArrayList<String> valSet = null; 
     for ( ArrayList<String> key : this.keySet() ) {
         valSet = this.get(key); // Value set for current key 
-        if (valSet.get(valIndex-1).equals(findVal)) {           
+        if ((valIndex<valSet.size()) && (valIndex>0) && valSet.get(valIndex-1).equals(findVal)) {           
             retVal = key; 
             break; 
             }
     }
-return retVal;
+return  (retVal == null) ? null : retVal;
 }
 
-// Return the value array for specific hit on keys[findkey].  
+// Return String valArray[valIndex] for keys[keyIndex] == findVal  
 public String getK(String findVal, int valIndex, int keyIndex) { 
     ArrayList<String> retVal = null; 
     ArrayList<String> valSet = null; 

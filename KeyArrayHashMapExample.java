@@ -5,10 +5,12 @@
 ## File ID: db5e861076d128a4e6be5b880ba8b587
 ## Filename: KeyArrayHashMapExample.java
 ## Classes: KeyArrayHashMapExample
-## Last Modified: 2023-03-12
+## Last Modified: 2023-03-13
 ## Issues: If you find any issues emai1 me at my <first name> dot
 ##         <my last name> at gmail dot com.
 ##
+## Requirements: KeyArrayHashMap.class (in same directory as this class)
+## 
 ## The purpose of this class is to provide example functionality of 
 ## KeyArrayHashMap. 
 ## E.g. 
@@ -77,7 +79,8 @@ public class KeyArrayHashMapExample {
     
     System.out.printf("Searching 2nd val for 10th key (out of bounds): key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal2, 2, 10), "(*** key not found ***)")); 
     System.out.printf("Searching 10th val for 3rd key (out of bounds): key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getK(srchVal2, 10, 3), "(*** key not found ***)")); 
-
+    System.out.printf("Searching 1st val for all keys: key %s (out of bounds val index).\n", srchKey, Objects.toString(mykeymap.getK(srchVal1, 10), "(*** key not found ***)")); 
+   
     }
 }
     
