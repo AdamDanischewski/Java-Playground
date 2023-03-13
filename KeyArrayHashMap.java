@@ -16,10 +16,10 @@
 ## to do things like: 
 ##  getV("match", 3, 5); // find "match" in key 3 and return 5th value. 
 ##  getV("match", 0, 2); // find "match" in any key, return 2nd value. 
-##  getV("match", 0, 0); // find "match" in any key, return all values. 
+##  getV("match", 0);    // find "match" in any key, return all values. 
 ##  getK("match", 3, 5); // find "match" in value 3 and return 5th key. 
 ##  getK("match", 0, 2); // find "match" in any value, return 2nd key. 
-##  getK("match", 0, 0); // find "match" in any value, return all keys. 
+##  getK("match", 0);    // find "match" in any value, return all keys. 
 ## 
 ## This header is required to follow any reuse of this code and is not 
 ## allowed to be modified or deleted except by the Author. This program is 
@@ -35,25 +35,55 @@
   ######################################################################
  */
 import java.util.ArrayList;
+import java.util.List;
+
 import java.util.HashMap; 
 
 @SuppressWarnings("serial")
-class KeyArrayHashMap extends HashMap <ArrayList<String>, ArrayList<String>> { 
+class KeyArrayHashMap extends HashMap<ArrayList<String>, ArrayList<String>> { 
 
-//@SuppressWarnings("unchecked")
  public ArrayList<String> get(String findKey) { 
     ArrayList<String> retVal = null; 
-
-    for ( ArrayList<String> key : this.keySet() ) {
+        for ( ArrayList<String> key : this.keySet() ) {
         if (key.contains(findKey)) {           
-             System.out.printf( "Found key %s it's %s.\n", findKey, key.toString());
+             //System.out.printf( "Found key %s it's %s.\n", findKey, key.toString());
             retVal = key; 
             break; 
             }
     }
-
 return this.get(retVal);
 }
+
+// Return the value array for specific hit on keys[findkey].  
+public ArrayList<String> getV(String findKey, int keyIndex) { 
+    ArrayList<String> retVal = null; 
+        for ( ArrayList<String> key : this.keySet() ) {
+        if (key.get(keyIndex-1).equals(findKey)) {           
+             //System.out.printf( "Found key %s it's %s.\n", findKey, key.toString());
+            retVal = key; 
+            break; 
+            }
+    }
+return this.get(retVal);
+}
+
+// Return the value array for specific hit on keys[findkey].  
+public String getV(String findKey, int keyIndex, int valIndex) { 
+        ArrayList<String> retVal = null; 
+        for ( ArrayList<String> key : this.keySet() ) {
+        if (key.get(keyIndex-1).equals(findKey)) {           
+            //System.out.printf( "Found key %s it's %s.\n", findKey, key.toString());
+            retVal = key; 
+            break; 
+        }
+    }
+if (retVal == null) 
+ return null; 
+else      
+ return this.get(retVal).get(valIndex-1);
+}
+
+
 
 //  @Override
 //  public boolean equals(Object o) {

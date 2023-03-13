@@ -63,7 +63,9 @@ public class KeyArrayHashMapExample {
        mykeymap.put(newKeys, newValues); 
     }
     
-    System.out.printf("Searching for key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.get(srchKey), "(*** key not found ***)")); 
+    System.out.printf("Searching all keys for all values: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.get(srchKey), "(*** key not found ***)")); 
+    System.out.printf("Searching 2nd key for all values: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getV(srchKey, 2), "(*** key not found ***)")); 
+    System.out.printf("Searching 3rd keys for 1st value: key %s, found value %s.\n", srchKey, Objects.toString(mykeymap.getV(srchKey, 3, 1), "(*** key not found ***)")); 
     
     }
 }
